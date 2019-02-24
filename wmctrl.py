@@ -92,11 +92,6 @@ def within_leway(w):
         return False
 
 
-def is_active_window_maximized():
-    #not sure how to get this value, tbh
-    #I fixed the unmaxmimize function, all that's left is to figure out when a window is maximized
-    return False
-
 
 def maximize():
     command = "wmctrl -r :ACTIVE: -b toggle,maximized_vert,maximized_horz"
@@ -172,10 +167,7 @@ def up(shift = False):
 
 def down(shift = False):
     if not shift:
-        if is_active_window_maximized():
-            unmaximize()
-        else:
-            minimize()
+        minimize()
 
     if shift:
         w = max_width - window_border_width
