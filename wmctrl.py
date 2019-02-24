@@ -3,13 +3,13 @@
 # wmctrl.py
 #
 # developed by Benjamin Hutchins and Ryan Stringham
-# *forked and edited by KnottEye
+#
+# contributed by KnottEye
 #
 # an attempt to make linux more usable.
 #
 # MIT License
 #
-# forked from: https://github.com/benhutchins/wmctrl
 import sys
 import os
 import subprocess
@@ -93,26 +93,24 @@ def within_leway(w):
 
 
 def is_active_window_maximized():
+    #not sure how to get this value, tbh
+    #I fixed the unmaxmimize function, all that's left is to figure out when a window is maximized
     return False
 
 
 def maximize():
-    unmaximize()
-
-    command = "wmctrl -r :ACTIVE: -b add,maximized_vert,maximized_horz"
+    command = "wmctrl -r :ACTIVE: -b toggle,maximized_vert,maximized_horz"
     os.system(command)
 
 
 def unmaximize():
-    command = "wmctrl -r :ACTIVE: -b remove,maximized_vert,maximized_horz,hidden,below"
+    command = "wmctrl -ir $(xdotool getactivewindow) -b remove,maximized_vert,maximized_horz"
     os.system(command)
 
 
 def minimize():
-    unmaximize()
-
-    #command = "wmctrl -r :ACTIVE: -b add,below"
-    #os.system(command)
+    command = "xdotool getactivewindow windowminimize"
+    os.system(command)
 
 
 def move_active(x,y,w,h):
@@ -164,10 +162,7 @@ def right(shift = False):
 
 def up(shift = False):
     if not shift:
-        if is_active_window_maximized():
-            unmaximize()
-        else:
-            maximize()
+        maximize()
 
     else:
         w = max_width - window_border_width
