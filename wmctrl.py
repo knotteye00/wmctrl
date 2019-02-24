@@ -4,13 +4,15 @@
 #
 # developed by Benjamin Hutchins and Ryan Stringham
 #
+# contributed by KnottEye
+#
 # an attempt to make linux more usable.
 #
 # MIT License
 #
 import sys
 import os
-import commands
+import subprocess
 
 # Customizable variables
 window_title_height = 0#21
@@ -22,10 +24,10 @@ debug = False
 
 # Initialize, get data we need
 def initialize():
-    desk_output = commands.getoutput("wmctrl -d").split("\n")
+    desk_output = subprocess.getoutput("wmctrl -d").split("\n")
     desk_list = [line.split()[0] for line in desk_output]
 
-    current =  filter(lambda x: x.split()[1] == "*" , desk_output)[0].split()
+    current =  list(filter(lambda x: x.split()[1] == "*" , desk_output))[0].split()
 
     desktop = current[0]
     width =  current[8].split("x")[0]
@@ -37,7 +39,7 @@ def initialize():
     #window_id = commands.getoutput("xdpyinfo | grep focus | grep -E -o 0x[0-9a-f]+").strip()
     #window_id = hex(int(window_id, 16))
 
-    current = commands.getoutput("xwininfo -id $(xdotool getactivewindow)").split("\n")
+    current = subprocess.getoutput("xwininfo -id $(xdotool getactivewindow)").split("\n")
     absoluteX = int(current[3].split(':')[1])
     absoluteY = int(current[4].split(':')[1])
     relativeX = int(current[5].split(':')[1])
@@ -117,14 +119,14 @@ def move_active(x,y,w,h):
     unmaximize()
 
     if debug:
-        print x, y, w, h
+        print(x, y, w, h)
 
     # Sanity check, make sure bottom of window does not end up hidden
     if (y+h) > max_height:
         h = max_height - y
 
     if debug:
-        print x, y, w, h
+        print(x, y, w, h)
 
     command = "wmctrl -r :ACTIVE: -e 0," + str(x) + "," + str(y)+ "," + str(w) + "," + str(h)
     os.system(command)
@@ -215,4 +217,4 @@ if __name__ == '__main__':
         down(True)
 
     else:
-        print "Unknown command passed:", cmd
+        print("Unknown command passed:", cmd)
