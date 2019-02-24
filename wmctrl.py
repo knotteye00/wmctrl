@@ -20,7 +20,7 @@ window_border_width = 1
 panel_height = 30
 leway_percentage = .05
 
-debug = False
+debug = True
 
 # Initialize, get data we need
 def initialize():
@@ -120,6 +120,15 @@ def move_active(x,y,w,h):
 
     if debug:
         print(x, y, w, h)
+
+    #need to sanitize input so there's not trailing decimals
+    x = str(x).split(".")[0]
+    y = str(y).split(".")[0]
+    w = str(w).split(".")[0]
+    h = str(h).split(".")[0]
+
+    if debug:
+        print (y, w, h)
 
     command = "wmctrl -r :ACTIVE: -e 0," + str(x) + "," + str(y)+ "," + str(w) + "," + str(h)
     os.system(command)
