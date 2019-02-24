@@ -20,7 +20,7 @@ Available commands are:
     left                Position active window on the left-half of your desktop.        Super+Left
     right               Position active window on the right-half of your desktop        Super+Right
     up                  Toggle maximized state of active window                         Super+Up
-    down                Demaximize window if maximized(TODO), if not, minimize window.  Super+Down
+    down                Minimize window.                                                Super+Down
     shift-left          Position window to take up 1/3 or 2/3 of desktop on left.       Super+Shift+Left
     shift-right         Position window to take up 1/3 or 2/3 of desktop on right.      Super+Shift+Right
     shift-up            Position a window to take up 1/2 of desktop on top.             Super+Shift+Up
