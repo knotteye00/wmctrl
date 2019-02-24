@@ -3,13 +3,13 @@
 # wmctrl.py
 #
 # developed by Benjamin Hutchins and Ryan Stringham
-#
-# contributed by KnottEye
+# *forked and edited by KnottEye
 #
 # an attempt to make linux more usable.
 #
 # MIT License
 #
+# forked from: https://github.com/benhutchins/wmctrl
 import sys
 import os
 import subprocess
